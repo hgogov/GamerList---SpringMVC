@@ -19,28 +19,28 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <form:input path="title" value="${game.title}" type="text" cssClass="form-control" />
-                    <form:errors path="title" cssClass="error" />
+                    <form:errors path="title" cssClass="alert alert-danger" />
                 </div>
                 <div class="form-group">
                     <label for="developer">Developer</label>
-                    <form:select path="developer" id="developer">
+                    <form:select path="developer" id="developer" class="form-control">
                         <form:options items="${developers}" itemValue="id" itemLabel="name" />
                     </form:select>
-                    <form:errors path="developer" cssClass="error" />
+                    <form:errors path="developer" cssClass="alert alerrt-danger" />
                 </div>
 
                 <div class="form-group">
                     <label for="genre">Genre</label>
-                    <form:select path="genre" itemValue="id" items="${genres}" />
-                    <form:errors path="genre" cssClass="error" />
+                    <form:select path="genre" itemValue="id" items="${genres}" class="form-control" />
+                    <form:errors path="genre" cssClass="alert alert-danger" />
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
                     <form:input path="description" cssClass="form-control" />
-                    <form:errors path="description" cssClass="error" />
+                    <form:errors path="description" cssClass="alert alert-danger" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" class="btn btn-primary" />
                 </div>
             </form:form>
         </div>

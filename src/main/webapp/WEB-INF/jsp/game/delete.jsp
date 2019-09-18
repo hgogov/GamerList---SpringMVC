@@ -55,7 +55,7 @@
 
         <form:form method="POST" action="/games/delete/${id}" modelAttribute="game">
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
                 <a href="/games">Back to List</a>
             </div>
         </form:form>
