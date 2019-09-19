@@ -1,9 +1,12 @@
 package com.example.domain;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Game extends BaseEntity {
@@ -18,17 +21,17 @@ public class Game extends BaseEntity {
     private Genre genre;
 
     @Column(unique = true)
-    @NotNull
+    @NotBlank
     private String title;
 
-    @Length(max = 2048)
+    @Size(max = 2048)
     private String description;
 
 
     public Game() {
     }
 
-    public Game(@NotNull Developer developer, @NotNull Genre genre, @NotNull String title, @Length(max = 2048) String description) {
+    public Game(@NotNull Developer developer, @NotNull Genre genre, @NotNull String title, @Size(max = 2048) String description) {
         this.developer = developer;
         this.genre = genre;
         this.title = title;

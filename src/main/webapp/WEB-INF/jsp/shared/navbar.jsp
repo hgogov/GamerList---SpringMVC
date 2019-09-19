@@ -21,33 +21,42 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <!-- <ul class="navbar-nav ml-auto"> -->
+                <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            username <span class="caret"></span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" onclick="
+                                                     document.getElementById('logout-form').submit();">
+                            Logout
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @if(auth()->user()->isAdmin())<a href="/dashboard" class="dropdown-item">Dashboard</a>@endif
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                        </form>
                     </li>
-                </ul> -->
+
+                    <!-- <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            ${user} <span class="caret"></span>
+                        </a> -->
+
+                    <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
+                    <!-- @if(auth()->user()->isAdmin())<a href="/dashboard" class="dropdown-item">Dashboard</a>@endif -->
+                    <!-- <a class="dropdown-item" href="/logout" onclick="
+                                                     document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                        </form> -->
+                    <!-- </div> -->
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
