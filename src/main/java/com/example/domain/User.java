@@ -1,13 +1,12 @@
 package com.example.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User extends BaseEntity {
@@ -25,13 +24,23 @@ public class User extends BaseEntity {
     @Email(message = "{errors.invalid_email}")
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @ManyToMany
+    @JoinColumn()
     @NotNull
-    private Role role;
+    private Set<Role> roles = new HashSet<>();
 
     public String getUsername() {
         return username;
+    }
+
+    public User() {
+    }
+
+    public User(@NotBlank @Size(min = 1, max = 55) String username, @NotBlank @Size(min = 6, max = 128) String password, @NotBlank @Email(message = "{errors.invalid_email}") String email, @NotNull Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
 
     public void setUsername(String username) {
@@ -54,12 +63,12 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

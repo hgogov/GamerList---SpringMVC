@@ -18,7 +18,10 @@ public class GameService {
     }
 
     public List<GameDTO> findAllGames() {
-        return gameRepository.findAll().stream().map(GameDTO::new).collect(Collectors.toList());
+        return gameRepository.findAll()
+                .stream()
+                .map(GameDTO::new)
+                .collect(Collectors.toList());
     }
 
     public GameDTO findById(Long id) {
