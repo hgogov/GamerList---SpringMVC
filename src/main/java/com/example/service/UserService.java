@@ -2,25 +2,29 @@ package com.example.service;
 
 import com.example.domain.Role;
 import com.example.domain.User;
+import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import com.example.service.dto.UserDTO;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDTO> findAll() {
@@ -34,19 +38,28 @@ public class UserService implements UserDetailsService {
         return new UserDTO(userRepository.getOne(id));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
+    public User registerUser(UserDTO userDTO) {
+        if (emailExists(userDTO.getEmail())) {
+            return null;
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setEmail(userDTO.getEmail());
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.getOne(1L));
+        user.setRoles(roles);
+
+        return userRepository.save(user);
     }
 
-    private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        String[] userRoles = user.getRoles().stream().map(Role::getName).toArray(String[]::new);
-        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-        return authorities;
+    private boolean emailExists(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return false;
+        }
+        return true;
     }
 }

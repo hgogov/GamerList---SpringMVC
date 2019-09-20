@@ -34,19 +34,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder())
+                .withUser("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("USER", "ADMIN");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/webapp/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/", "/games", "/login*", "/logout").permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/games")
-                .permitAll()
+                .loginPage("/login.jsp")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout()
-                .permitAll();
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 
     @Bean

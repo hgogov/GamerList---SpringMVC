@@ -2,6 +2,8 @@ package com.example.service.dto;
 
 import com.example.domain.Role;
 import com.example.domain.User;
+import com.example.helpers.PasswordMatches;
+import com.example.helpers.ValidEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+@PasswordMatches
 public class UserDTO {
     private Long id;
 
@@ -19,12 +22,18 @@ public class UserDTO {
     @Size(min = 6, max = 128, message = "The password should be between 6 and 128 characters long")
     private String password;
 
+    private String confirmPassword;
+
     @NotBlank(message = "Email is required")
     @Email(message = "The email is not valid")
+    @ValidEmail(message = "The email is not valid")
     private String email;
 
     @NotNull(message = "Role is required")
     private Set<Role> roles;
+
+    public UserDTO() {
+    }
 
     public UserDTO(User user) {
         this.id = user.getId();
@@ -58,6 +67,14 @@ public class UserDTO {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -66,11 +83,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public Set<Role> getRole() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRole(Role role) {
+    public void setRoles(Role role) {
         this.roles = roles;
     }
 

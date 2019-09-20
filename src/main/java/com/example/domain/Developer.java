@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 public class Developer extends BaseEntity {
-    @Column(unique = true)
     @Size(min = 2, max = 128)
     @NotNull
     private String name;

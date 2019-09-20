@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 public class User extends BaseEntity {
-    @Column(unique = true)
     @NotBlank
     @Size(min = 1, max = 55)
     private String username;
@@ -19,7 +18,6 @@ public class User extends BaseEntity {
     @Size(min = 6, max = 128)
     private String password;
 
-    @Column(unique = true)
     @NotBlank
     @Email(message = "{errors.invalid_email}")
     private String email;

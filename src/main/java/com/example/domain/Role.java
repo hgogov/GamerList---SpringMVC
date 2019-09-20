@@ -7,7 +7,6 @@ import java.util.Set;
 
 @Entity
 public class Role extends BaseEntity {
-    @Column(unique = true)
     @NotBlank
     private String name;
 

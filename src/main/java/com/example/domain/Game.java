@@ -20,7 +20,6 @@ public class Game extends BaseEntity {
     @NotNull
     private Genre genre;
 
-    @Column(unique = true)
     @NotBlank
     private String title;
 

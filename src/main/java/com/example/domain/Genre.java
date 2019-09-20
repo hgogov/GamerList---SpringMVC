@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 public class Genre extends BaseEntity {
-    @Column(length = 55, unique = true)
+    @Column(length = 55)
     @NotNull
     private String name;
 
