@@ -21,14 +21,15 @@ public class AccountController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
+        model.addAttribute("login", new UserDTO());
         return "login";
     }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login() {
-
-        return "login";
-    }
+//
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public String login() {
+//
+//        return "login";
+//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
@@ -39,7 +40,6 @@ public class AccountController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result) {
-
 
 
         return "register";

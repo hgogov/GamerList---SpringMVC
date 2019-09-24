@@ -30,17 +30,17 @@ public class GameService {
     }
 
     @Transactional
-    public void add(Game game) {
-        gameRepository.save(game);
+    public Game add(Game game) {
+        return gameRepository.save(game);
     }
 
-    public void update(Long id, Game game) {
+    public Game update(Long id, Game game) {
         Game gameToUpdate = gameRepository.getOne(id);
         gameToUpdate.setTitle(game.getTitle());
         gameToUpdate.setDeveloper(game.getDeveloper());
         gameToUpdate.setGenre(game.getGenre());
         gameToUpdate.setDescription(game.getDescription());
-        gameRepository.save(gameToUpdate);
+        return gameRepository.save(gameToUpdate);
     }
 
     public void delete(Long id) {

@@ -15,7 +15,7 @@
     <h2>Login</h2>
     <div class="container">
         <div class="row">
-            <form:form method="POST" action="/login" modelAttribute="login">
+            <form:form method="POST" action="/processLogin" modelAttribute="login">
                 <!-- <form:errors path="*" cssClass="alert alert-danger" element="div" /> -->
                 <div class="form-group">
                     <form:input path="username" value="${user.username}" type="text" cssClass="form-control"
