@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
