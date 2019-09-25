@@ -98,8 +98,8 @@ public class GameController {
             model.addAttribute("genres", genreService.findAll());
             return "game/edit";
         }
-        Game game = new Game(gameDTO.getDeveloper(), gameDTO.getGenre(), gameDTO.getTitle(), gameDTO.getDescription());
-        gameService.update(id, game);
+//        Game game = new Game(gameDTO.getDeveloper(), gameDTO.getGenre(), gameDTO.getTitle(), gameDTO.getDescription());
+        gameService.update(id, gameDTO);
         return "redirect:/games/details/" + id;
     }
 

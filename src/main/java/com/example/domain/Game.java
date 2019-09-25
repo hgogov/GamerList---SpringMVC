@@ -1,5 +1,7 @@
 package com.example.domain;
 
+import com.example.service.dto.GameDTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

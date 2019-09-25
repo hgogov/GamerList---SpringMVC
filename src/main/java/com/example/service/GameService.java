@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.domain.Game;
+import com.example.exception.GameNotFoundException;
 import com.example.repository.GameRepository;
 import com.example.service.dto.GameDTO;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class GameService {
     private final GameRepository gameRepository;
+    private String message;
 
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, String message) {
         this.gameRepository = gameRepository;
+        this.message = message;
     }
 
     public List<GameDTO> findAllGames() {
@@ -26,7 +29,12 @@ public class GameService {
 
     public GameDTO findById(Long id) {
         // Game game = gameRepository.getOne(id);
-        return new GameDTO(gameRepository.getOne(id));
+
+        Game one = gameRepository.getOne(id);
+        if (one == null) {
+            throw new GameNotFoundException(message);
+        }
+        return new GameDTO();
     }
 
     @Transactional
@@ -34,7 +42,7 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public Game update(Long id, Game game) {
+    public Game update(Long id, GameDTO game) {
         Game gameToUpdate = gameRepository.getOne(id);
         gameToUpdate.setTitle(game.getTitle());
         gameToUpdate.setDeveloper(game.getDeveloper());
