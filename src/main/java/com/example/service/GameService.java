@@ -30,8 +30,8 @@ public class GameService {
     public GameDTO findById(Long id) {
         // Game game = gameRepository.getOne(id);
 
-        Game one = gameRepository.getOne(id);
-        if (one == null) {
+        Game game = gameRepository.getOne(id);
+        if (game == null) {
             throw new GameNotFoundException(message);
         }
         return new GameDTO();

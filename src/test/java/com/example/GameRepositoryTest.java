@@ -22,21 +22,21 @@ public class GameRepositoryTest {
 //        gameService = new GameService(gameRepository, m);
 //    }
 
-    @Test
-    public void findGameByTitle() {
-        Mockito.when(gameRepository.findByTitle("The Witcher")).thenReturn(new Game(new Developer(), new Genre(), "The Witcher", ""));
-//        Game foundGame = gameService.findByTitle(SEARCH_TERM);
-//        assertEquals(SEARCH_TERM, foundGame.getTitle());
-    }
-
-    @Test
-    public void findGameById() {
-        Long id = 1L;
-
-
-        Mockito.when(gameService.findById(id)).thenReturn(gameDTO());
-        assertEquals(id, gameService.findById(id).getId());
-    }
+//    @Test
+//    public void findGameByTitle() {
+//        Mockito.when(gameRepository.findByTitle("The Witcher")).thenReturn(new Game(new Developer(), new Genre(), "The Witcher", ""));
+////        Game foundGame = gameService.findByTitle(SEARCH_TERM);
+////        assertEquals(SEARCH_TERM, foundGame.getTitle());
+//    }
+//
+//    @Test
+//    public void findGameById() {
+//        Long id = 1L;
+//
+//
+//        Mockito.when(gameService.findById(id)).thenReturn(gameDTO());
+//        assertEquals(id, gameService.findById(id).getId());
+//    }
 
     private GameDTO gameDTO() {
         GameDTO gameDTO = new GameDTO();

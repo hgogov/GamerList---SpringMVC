@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Service("userDetailsService")
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public UserDetailsServiceImpl() {
+    }
 
     public UserDetailsServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;

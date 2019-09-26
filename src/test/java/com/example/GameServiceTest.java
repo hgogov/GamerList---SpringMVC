@@ -8,8 +8,6 @@ import com.example.exception.GameNotFoundException;
 import com.example.repository.GameRepository;
 import com.example.service.GameService;
 import com.example.service.dto.GameDTO;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +41,7 @@ class GameServiceTest {
     }
 
     @Test
-    void whenGameIdDoesNotExistShouldThrowNullPointerException() {
+    void whenGameIdDoesNotExistShould() {
         Long id = 213L;
         when(gameRepository.getOne(id)).thenReturn(null);
         try {

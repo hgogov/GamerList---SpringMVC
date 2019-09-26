@@ -30,7 +30,12 @@ public class GameBuilder {
         return this;
     }
 
-    public Game build(){
+    public GameBuilder withDescription(String description) {
+        game.setDescription(description);
+        return this;
+    }
+
+    public Game build() {
         this.game.setDeveloper(developer);
         this.game.setGenre(genre);
         return this.game;
