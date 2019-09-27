@@ -62,7 +62,7 @@ class GameServiceTest {
         Game game = new Game(developer, genre, "The First Templar", "The First Templar");
 
         when(gameRepository.save(game)).thenReturn(game);
-        Game createdGame = gameService.add(game);
+        Game createdGame = gameService.add(new GameDTO(game));
         assertEquals(game, createdGame);
     }
 

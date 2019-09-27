@@ -20,7 +20,7 @@ public class GameService {
         this.message = message;
     }
 
-    public List<GameDTO> findAllGames() {
+    public List<GameDTO> findAll() {
         return gameRepository.findAll()
                 .stream()
                 .map(GameDTO::new)
@@ -38,8 +38,13 @@ public class GameService {
     }
 
     @Transactional
-    public Game add(Game game) {
-        return gameRepository.save(game);
+    public Game add(GameDTO gameDTO) {
+        Game newGame = new Game();
+        newGame.setTitle(gameDTO.getTitle());
+        newGame.setDeveloper(gameDTO.getDeveloper());
+        newGame.setGenre(gameDTO.getGenre());
+        newGame.setDescription(gameDTO.getDescription());
+        return gameRepository.save(newGame);
     }
 
     public Game update(Long id, GameDTO game) {

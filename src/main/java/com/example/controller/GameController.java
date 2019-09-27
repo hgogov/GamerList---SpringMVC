@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.domain.Game;
 import com.example.service.DeveloperService;
 import com.example.service.GameService;
 import com.example.service.GenreService;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +28,7 @@ public class GameController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
-        List<GameDTO> allGames = gameService.findAllGames();
+        List<GameDTO> allGames = gameService.findAll();
         model.addAttribute("games", allGames);
         return "game/index";
         // return new ModelAndView("game-index", "games", model).addObject("games",
@@ -45,36 +43,26 @@ public class GameController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(@ModelAttribute("game") GameDTO gameDTO, Model model) {
+    public String showCreateForm(@ModelAttribute("game") GameDTO gameDTO, Model model) {
         if (gameDTO == null) {
             gameDTO = new GameDTO();
         }
         model.addAttribute("game", new GameDTO());
         model.addAttribute("developers", developerService.findAll());
         model.addAttribute("genres", genreService.findAll());
-
-        model.addAttribute("empty", null);
-
         return "game/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("game") GameDTO gameDTO, BindingResult result, Model model) {
+    public String create(@Valid @ModelAttribute("game") GameDTO gameDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("game", gameDTO); // revisit
             model.addAttribute("developers", developerService.findAll());
             model.addAttribute("genres", genreService.findAll());
-            return new ModelAndView("game/create", "game", gameDTO);
+            return "game/create";
         }
-        Game newGame = new Game();
-        newGame.setTitle(gameDTO.getTitle());
-        newGame.setDeveloper(gameDTO.getDeveloper());
-        newGame.setGenre(gameDTO.getGenre());
-        newGame.setDescription(gameDTO.getDescription());
-
-        gameService.add(newGame);
-
-        return new ModelAndView("game/create");
+        gameService.add(gameDTO);
+        return "redirect:/games";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
